@@ -16,10 +16,11 @@ List<String>? breakString(String s, int k) {
   // building a linked list of words
   MyLinkedNode head = MyLinkedNode().consumeList(s.split(' '));
   MyLinkedNode current = head;
-  current.printList();
+  if (current.content!.length > k) {
+    return null;
+  }
   while (current.next != null) {
     if (current.content!.length > k) {
-      print("DEBUG: FOUND ILLEGAL CASE: ${current.content} (k = $k)");
       return null;
     }
     if (current.content!.length + current.next!.content!.length + 1 > k) {
@@ -59,7 +60,6 @@ class MyLinkedNode {
     // consume the list from back to front
     MyLinkedNode current = this;
     current.content = list.removeLast();
-    print("consuming ${current.content}");
     while (!list.isEmpty) {
       current = MyLinkedNode(content: list.removeLast(), next: current);
     }
@@ -183,7 +183,7 @@ void main() {
 
   // Test Case 5: Single long word that exceeds k
   result = breakString("onewordisverylong", 5);
-  printTestResult("Test Case 5", "onewordisverylong hi", 5, result, null);
+  printTestResult("Test Case 5", "onewordisverylong", 5, result, null);
 
   // Test Case 6: Empty string
   result = breakString("", 5);
