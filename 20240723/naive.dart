@@ -4,21 +4,20 @@
 // it is no longer possible (said consumption would result in a phrase
 // exceeding the character limit)
 
-// import 'dart:collection';
 import 'dart:io';
 
-// void main(List<String> args) {
-//   List<String> list = breakString("the quick brown fox jumped over the fence", 10);
-//   print(list);
-// }
 
 List<String>? breakString(String s, int k) {
   // building a linked list of words
   MyLinkedNode head = MyLinkedNode().consumeList(s.split(' '));
+  
+  // lazy fix for test case 7 (oversized input)
   MyLinkedNode current = head;
   if (current.content!.length > k) {
     return null;
   }
+
+  // Loop through the linked list to consume the next words one by one
   while (current.next != null) {
     if (current.content!.length > k) {
       return null;
