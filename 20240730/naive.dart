@@ -14,6 +14,8 @@
 ///
 /// we can then associate the unique indexing of each node to the content
 /// it's supposed to store in a map.
+/// 
+/// TODO: Implement BST and Binary Heap using the implicit tree 
 
 class HilbertBinaryTree<T> {
   final Map<int, T> _data = {};
