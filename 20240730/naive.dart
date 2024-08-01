@@ -14,11 +14,11 @@
 ///
 /// we can then associate the unique indexing of each node to the content
 /// it's supposed to store in a map.
-/// 
-/// TODO: Implement BST and Binary Heap using the implicit tree 
+///
+/// TODO: Implement BST and Binary Heap using the implicit tree
 
-class HilbertBinaryTree<T> {
-  final Map<int, T> _data = {};
+class HilbertBinaryTree<T extends Comparable> {
+  final Map<int, T> data = {};
 
   // all methods that return a node in this tree will return its index
   int generate() {
@@ -44,33 +44,33 @@ class HilbertBinaryTree<T> {
   }
 
   void setValue(int nodeIndex, T value) {
-    _data[nodeIndex] = value;
+    data[nodeIndex] = value;
   }
 
   void unsetValue(int nodeIndex) {
-    _data.remove(nodeIndex);
+    data.remove(nodeIndex);
   }
 
   T? getValue(int nodeIndex) {
-    return _data[nodeIndex];
+    return data[nodeIndex];
   }
 
   bool containsValue(int nodeIndex) {
-    return _data.containsKey(nodeIndex);
+    return data.containsKey(nodeIndex);
   }
 
   //
   // ─── EXTERNAL BINARY TREE INTERFACE ───────────────────────────────────────────
   //
   void insert(T value) {
-    int index = _data.length;
+    int index = data.length;
     setValue(index, value);
   }
 
   // Find the index of a node with a given value
   int findIndex(T searchValue) {
     try {
-      return _data.entries
+      return data.entries
           .firstWhere(
             (entry) => entry.value == searchValue,
             orElse: () => throw ValueNotFoundException(
@@ -93,28 +93,28 @@ class HilbertBinaryTree<T> {
   }
 
   void deleteByIndex(int index) {
-    int lastIndex = _data.length - 1;
+    int lastIndex = data.length - 1;
     if (index == lastIndex) {
       // simply remove
-      _data.remove(index);
+      data.remove(index);
     } else {
       // move the last node into the missing spot, then remove the empty tail
-      _data[index] = _data[lastIndex]!;
-      _data.remove(lastIndex);
+      data[index] = data[lastIndex]!;
+      data.remove(lastIndex);
     }
   }
 
   void printTree() {
-    _data.forEach((index, value) {
+    data.forEach((index, value) {
       print('Index $index: $value');
     });
   }
 
   // functional in-order traversal
   void inOrderTraversal(int index, Function(T value) action) {
-    if (_data.containsKey(index)) {
+    if (data.containsKey(index)) {
       inOrderTraversal(getLeft(index), action);
-      action(_data[index]!);
+      action(data[index]!);
       inOrderTraversal(getRight(index), action);
     }
   }
