@@ -1,0 +1,22 @@
+name: leetcode0819
+description: A new Dart project.
+
+# The following section defines the environment for this package.
+environment:
+  sdk: '>=2.12.0 <3.0.0'
+
+# Dependencies specify other packages that your package needs in order to work.
+dependencies:
+  # You can add other dependencies here as needed.
+  # Example:
+  # http: ^0.13.0
+
+dev_dependencies:
+  test: ^1.21.0   # Add the test package for unit testing
+
+# You can add executables or other custom configurations below:
+# executables:
+#   my_dart_project: bin/main.dart
+
+# Optionally you can add some configuration here
+# like build_runner or other tools.
