@@ -4,6 +4,8 @@ import 'package:test/test.dart';
 /// This brute force method applies the process to the initial number and ALL of its
 /// descendants via the processing of a FIFO queue until the value 1 is reached
 /// Let's dub this procedure the "Collatz at home" conjecture
+/// 
+/// WIP (2024 08 21): Having serious trouble with guaranteeing the correctness of the path's length 
 
 void main() {
   // testFactorize();
@@ -36,7 +38,7 @@ int runCollatzAtHomeLoop(int N) {
     queue.add(Tuple(T.value - 1, T.iterations + 1));
     // queue all factors of T
     print("Iteration ${T.iterations}: Factors of ${T.value}");
-    queue.addAll(factorize(T.value).where((int k) => k != 1 && k != T.value).map((int k) => Tuple(k, T.iterations + 1)));
+    queue.addAll(factorize(T.value).where((int t) => t != 1 && t != T.value).map((int t) => Tuple(t, T.iterations + 1)));
 
     print("ENDING loop, queue = $queue");
   }
