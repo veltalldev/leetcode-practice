@@ -299,10 +299,10 @@
       "name": "leetcode0824",
       "rootUri": "../",
       "packageUri": "lib/",
-      "languageVersion": "2.12"
+      "languageVersion": "3.0"
     }
   ],
-  "generated": "2024-08-26T17:27:51.456730Z",
+  "generated": "2024-08-27T03:50:31.436281Z",
   "generator": "pub",
   "generatorVersion": "3.5.1",
   "pubCache": "file:///C:/Users/griev/AppData/Local/Pub/Cache"

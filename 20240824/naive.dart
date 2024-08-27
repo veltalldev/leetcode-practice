@@ -1,7 +1,7 @@
 import 'dart:math';
 import 'package:test/test.dart';
 
-/// this is a simple looking problem where we just calculate the cartesian distances then sort them
+/// this is a simple-looking problem where we just calculate the cartesian distances then sort them
 
 class Point {
   final double x;
@@ -9,7 +9,7 @@ class Point {
 
   const Point(this.x, this.y);
 
-  double distannceFrom(Point p) {
+  double distanceFrom(Point p) {
     return sqrt(pow(x - p.x, 2) + pow(y - p.y, 2));
   }
 
@@ -27,11 +27,8 @@ class Point {
 }
 
 List<Point> nearestKPoints(List<Point> points, Point center, int k) {
-  if (k > points.length) {
-    return [];
-  }
   var sortedList = points.map((Point p) {
-    double distance = p.distannceFrom(center);
+    double distance = p.distanceFrom(center);
     return MapEntry(p, distance);
   }).toList()
     ..sort((a, b) {
@@ -39,12 +36,9 @@ List<Point> nearestKPoints(List<Point> points, Point center, int k) {
       return a.value.compareTo(b.value);
     });
 
-  return sortedList
-      .map((mapEntry) {
-        return mapEntry.key;
-      })
-      .toList()
-      .sublist(0, k);
+  return sortedList.take(k).map((mapEntry) {
+    return mapEntry.key;
+  }).toList();
 }
 
 void main(List<String> args) {
