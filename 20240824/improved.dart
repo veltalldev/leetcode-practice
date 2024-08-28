@@ -154,8 +154,8 @@ List<Point> findNearestKPoints(List<Point> points, Point target, int k) {
   });
 
   // check the remaining points, if smaller than max, include into k points
-  pdlist.skip(k).toList().map((pd) {
-    if (pd.distance > pdheap.heap[0].distance) {
+  pdlist.skip(k).toList().forEach((pd) {
+    if (pd.compareTo(pdheap.heap[0]) < 0) {
       pdheap.heap[0] = pd;
       pdheap._heapifyDown(0);
     }
@@ -174,6 +174,17 @@ class Point {
   String toString() {
     return "($x, $y)";
   }
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is Point &&
+          runtimeType == other.runtimeType &&
+          x == other.x &&
+          y == other.y;
+
+  @override
+  int get hashCode => x.hashCode & y.hashCode;
 }
 
 // keeps track of a 2D point and its distance from the target
