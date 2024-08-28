@@ -29,15 +29,15 @@ class Point {
 List<Point> nearestKPoints(List<Point> points, Point center, int k) {
   var sortedList = points.map((Point p) {
     double distance = p.distanceFrom(center);
-    return MapEntry(p, distance);
+    return (p, distance);
   }).toList()
     ..sort((a, b) {
       // Sort in ascending order
-      return a.value.compareTo(b.value);
+      return a.$2.compareTo(b.$2);
     });
 
-  return sortedList.take(k).map((mapEntry) {
-    return mapEntry.key;
+  return sortedList.take(k).map((entry) {
+    return entry.$1;
   }).toList();
 }
 
