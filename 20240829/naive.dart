@@ -91,34 +91,37 @@ Set<Set<T>> generateSuperSet<T>(Set<T> X) {
   final array = X.toList();
   final rows = 1 << n;
 
-  // generate a 2^n x n grid of ALL binary values
-  // to represent the appearance of each member in all 2^n subsets
-  final subsets = List.generate(rows, (index) {
+  // generate a [2^n subsets x n members] grid, each row of bits
+  // represents members of X in that subset
+  // e.g. n = 3; [1, 1, 0] means this subset includes the first and second
+  // members of the set X but not the third
+  final binaryLists = List.generate(rows, (index) {
     return indexToBinaryBits(index, n);
   });
 
   Set<Set<T>> superSet = {};
-  // iterate through the list of subsets, for each subset, if it has a
-  // positive bit at location i, add the ith member from set X to subset
-  // then add subset to superset once finished processing
-  subsets.forEach((binaryList) {
+  // use the binary data to generate corresponding subsets containing
+  // actual set members from X. A positive bit = corresponding member
+  // is included
+  binaryLists.forEach((binaryList) {
     final Set<T> subset = <T>{};
-    binaryList.asMap().forEach((index, binaryBit) {
-      if (binaryBit == 1) subset.add(array[index]);
-    });
+    for (var i = 0; i < binaryList.length; i++) {
+      if (binaryList[i] == 1) subset.add(array[i]);
+    }
     superSet.add(subset);
   });
 
   return superSet;
 }
 
+// given an index value, generate an array of bits
+// that represents that value in binaryy form
 List<int> indexToBinaryBits(int index, int n) {
   final bits = List.filled(n, 0);
 
+  // bit-wise shift the index to get
+  // decimal place values
   for (var i = 0; i < n; i++) {
-    // the entire bits array represents the index in binary form
-    // so we shift the value index by the corresponding steps to
-    // produce each decimal place, starting from the least significant bit
     bits[(n - 1) - i] = (index >> i) & 1;
   }
 
