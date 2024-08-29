@@ -1,0 +1,9 @@
+name: leetcode0829
+
+environment:
+  sdk: ">=3.0.0 <4.0.0"
+
+dependencies:
+
+dev_dependencies:
+  test: ^1.25.8
