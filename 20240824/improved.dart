@@ -165,6 +165,27 @@ List<Point> findNearestKPoints(List<Point> points, Point target, int k) {
 }
 
 // ===============================================================
+// alternative solution using dart's built in heap
+
+// List<Point> findNearestKPoints(List<Point> points, Point target, int k) {
+//   if (k < 1) return [];
+//   final heap = HeapPriorityQueue<PointDistance>((a, b) {
+//     return b.distance.compareTo(a.distance);
+//   });
+//
+//   heap.addAll(points.take(k).map((p) => PointDistance(p, target)));
+//
+//   points.skip(k).toList().forEach((point) {
+//     final p = PointDistance(point, target);
+//     if (p.distance < heap.first.distance) {
+//       heap.removeFirst();
+//       heap.add(p);
+//     }
+//   });
+//   return heap.toList().map((pd) => pd.p).toList();
+// }
+
+// ===============================================================
 
 class Point {
   final double x;
