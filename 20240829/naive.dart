@@ -95,7 +95,7 @@ Set<Set<T>> generateSuperSet<T>(Set<T> X) {
   // represents members of X in that subset
   // e.g. n = 3; [1, 1, 0] means this subset includes the first and second
   // members of the set X but not the third
-  final binaryLists = List.generate(rows, (index) {
+  final binaryGrid = List.generate(rows, (index) {
     return indexToBinaryBits(index, n);
   });
 
@@ -103,13 +103,13 @@ Set<Set<T>> generateSuperSet<T>(Set<T> X) {
   // use the binary data to generate corresponding subsets containing
   // actual set members from X. A positive bit = corresponding member
   // is included
-  binaryLists.forEach((binaryList) {
-    final Set<T> subset = <T>{};
-    for (var i = 0; i < binaryList.length; i++) {
-      if (binaryList[i] == 1) subset.add(array[i]);
+  superSet.addAll(binaryGrid.map((row) {
+    final subset = <T>{};
+    for (var i = 0; i < row.length; i++) {
+      if (row[i] == 1) subset.add(array[i]);
     }
-    superSet.add(subset);
-  });
+    return subset;
+  }));
 
   return superSet;
 }
