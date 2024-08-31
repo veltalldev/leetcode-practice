@@ -12,6 +12,62 @@ import 'dart:math';
 // determine the minimum cost to build all N houses
 // returnn double cost;
 
+import 'package:test/test.dart';
+
+void main() {
+  group('findMinCost', () {
+    test('Test with a simple 2x2 matrix', () {
+      final costs = [
+        [1.0, 2.0],
+        [3.0, 4.0]
+      ];
+      expect(findMinCost(costs), equals(5.0));
+    });
+
+    test('Test with a 3x3 matrix', () {
+      final costs = [
+        [1.0, 5.0, 3.0],
+        [2.0, 9.0, 4.0],
+        [1.0, 5.0, 3.0]
+      ];
+      expect(findMinCost(costs), equals(6.0));
+    });
+
+    test('Test with a 3x3 matrix with non-trivial adjacent constraints', () {
+      final costs = [
+        [1.0, 100.0, 3.0],
+        [2.0, 9.0, 4.0],
+        [1.0, 100.0, 3.0]
+      ];
+      expect(findMinCost(costs), equals(6.0));
+    });
+
+    test('Test with a 4x3 matrix', () {
+      final costs = [
+        [1.0, 2.0, 3.0],
+        [4.0, 5.0, 6.0],
+        [7.0, 8.0, 9.0],
+        [1.0, 2.0, 3.0]
+      ];
+      expect(findMinCost(costs), equals(15.0));
+    });
+
+    test('Test with no houses', () {
+      final costs = <List<double>>[];
+      expect(findMinCost(costs), equals(0.0));
+    });
+
+    test('Test with one house and multiple colors', () {
+      final costs = [
+        [10.0, 15.0, 20.0]
+      ];
+      expect(findMinCost(costs), equals(10.0));
+    });
+  });
+}
+
+// ======================================================
+
 double findMinCost(List<List<double>> costs) {
   int n = costs.length;
   if (n == 0) return 0;
@@ -44,7 +100,7 @@ double findMinCost(List<List<double>> costs) {
         final colorChoice = oneConfig[i];
         costSum += costs[houseChoice][colorChoice];
       }
-      minCost = minCost > costSum ? minCost : costSum;
+      minCost = minCost < costSum ? minCost : costSum;
     }
   });
 
@@ -52,9 +108,10 @@ double findMinCost(List<List<double>> costs) {
 }
 
 bool hasNoAdjacentDuplicates(List<int> houseColorConfig) {
-  var isValid = true;
   for (var i = 1; i < houseColorConfig.length; i++) {
-    isValid = houseColorConfig[i] != houseColorConfig[i - 1];
+    if (houseColorConfig[i] == houseColorConfig[i - 1]) {
+      return false;
+    }
   }
-  return isValid;
+  return true;
 }
