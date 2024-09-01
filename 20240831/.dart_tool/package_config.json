@@ -296,13 +296,13 @@
       "languageVersion": "2.19"
     },
     {
-      "name": "leetcode0830",
+      "name": "leetcode0831",
       "rootUri": "../",
       "packageUri": "lib/",
       "languageVersion": "3.0"
     }
   ],
-  "generated": "2024-09-01T06:07:41.414589Z",
+  "generated": "2024-09-01T06:08:01.076629Z",
   "generator": "pub",
   "generatorVersion": "3.5.1",
   "pubCache": "file:///C:/Users/griev/AppData/Local/Pub/Cache"

@@ -92,6 +92,8 @@ void main() {
 }
 
 // ============================================================
+// ============================================================
+// ============================================================
 
 double findMinCost(List<List<double>> costs) {
   int n = costs.length;
@@ -104,14 +106,14 @@ double findMinCost(List<List<double>> costs) {
 
   // initialize: if only the first house is considered, then the minimum
   // cost to paint that far is simply the cost of that house
-  // painted with the respective color j
+  // painted with the respective color option j
   for (var j = 0; j < k; j++) {
     dp[0][j] = costs[0][j]; // minimal cost = sticker price
   }
 
   // for subsets including 2 or more houses, the minimum cost of each step
   // dp[i][j] is the smallest among the sums of
-  // 1. the color j (0 through k)
+  // 1. house i with the color j (0 through k)
   // 2. the minimum cost of the previous step for ALL colors BUT j
   for (var i = 1; i < n; i++) {
     // Step 1: extract the minimums of the previous step

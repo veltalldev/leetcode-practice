@@ -1,0 +1,10 @@
+name: leetcode0831
+description: 01 knapsack problem
+
+environment:
+  sdk: ">=3.0.0 <4.0.0"
+
+dependencies:
+
+dev_dependencies:
+  test: ^1.25.8
