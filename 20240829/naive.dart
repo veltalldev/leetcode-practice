@@ -1,4 +1,3 @@
-import 'dart:math';
 
 /// I have some vague memory about the concept of a powerset
 /// A powerset of set X is the union of all of X's subsets, including
