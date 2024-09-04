@@ -83,9 +83,8 @@ void main() {
 // ================================================================
 
 class Stack<T> {
-  final _maxHeap = HeapPriorityQueue<_ItemWithID<T>>(
-    // internal compare by ID logic
-    // reverse sort to expose oldest item to the top
+  final _minHeap = HeapPriorityQueue<_ItemWithID<T>>(
+    // internal compare-by-ID logic to expose item with min ID
     (p0, p1) => p1.compareTo(p0),
   );
   int _idCounter = 0;
@@ -94,23 +93,23 @@ class Stack<T> {
   // ==============
   // Conventional Stack API
   void push(T item) {
-    _maxHeap.add(_ItemWithID(_idCounter++, item));
+    _minHeap.add(_ItemWithID(_idCounter++, item));
   }
 
   T pop() {
     if (isEmpty()) throw Exception("Stack is empty, cannot pop.");
-    return _maxHeap.removeFirst().value;
+    return _minHeap.removeFirst().value;
   }
 
-  T peek() => _maxHeap.first.value;
+  T peek() => _minHeap.first.value;
 
-  bool isEmpty() => _maxHeap.isEmpty;
+  bool isEmpty() => _minHeap.isEmpty;
 
-  int size() => _maxHeap.length;
+  int size() => _minHeap.length;
 
   @override
   String toString() {
-    return "Stack(items: $_maxHeap)";
+    return "Stack(items: $_minHeap)";
   }
 }
 
