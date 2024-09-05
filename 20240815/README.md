@@ -1,5 +1,15 @@
-Given a list of numbers and a number `k`, return whether any two numbers from the list add up to `k`.
+# Problem: Check if Two Numbers Add Up to K
 
-For example, given `[10, 15, 3, 7]` and `k` of `17`, return true since `10 + 7` is `17`.
+## Problem Statement:
+Given a list of numbers and an integer `k`, write a function that returns whether **any two numbers** from the list add up to `k`.
 
-Bonus: Can you do this in one pass?
+### Example 1:
+**Input**:
+```plaintext
+numbers = [10, 15, 3, 7]
+k = 17
+```
+**Output**:
+```plaintext
+true
+```

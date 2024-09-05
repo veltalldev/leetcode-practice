@@ -1,5 +1,23 @@
-Given a string s and an integer k, break up the string into multiple lines such that each line has a length of k or less. You must break it up so that words don't break across lines. Each line has to have the maximum possible amount of words. If there's no way to break the text up, then return null.
+# Problem: Break String into Multiple Lines
 
-You can assume that there are no spaces at the ends of the string and that there is exactly one space between each word.
+## Problem Statement:
+Given a string `s` and an integer `k`, break up the string into multiple lines such that:
+- Each line has a length of `k` or less.
+- Words don't break across lines.
+- Each line should have the maximum possible number of words.
+- If it's not possible to break the text up, return `null`.
 
-For example, given the string "the quick brown fox jumps over the lazy dog" and k = 10, you should return: ["the quick", "brown fox", "jumps over", "the lazy", "dog"]. No string in the list has a length of more than 10.
+### Assumptions:
+- There are no spaces at the beginning or end of the string.
+- There is exactly one space between each word.
+
+### Example:
+**Input**:
+```plaintext
+s = "the quick brown fox jumps over the lazy dog"
+k = 10
+```
+**Output**:
+```plaintext
+["the quick", "brown fox", "jumps over", "the lazy", "dog"]
+```

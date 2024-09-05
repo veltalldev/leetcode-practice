@@ -1,5 +1,16 @@
-The power set of a set is the set of all its subsets. Write a function that, given a set, generates its power set.
+# Problem: Generate the Power Set of a Set
 
-For example, given the set `{1, 2, 3}`, it should return `{{}, {1}, {2}, {3}, {1, 2}, {1, 3}, {2, 3}, {1, 2, 3}}`.
+## Problem Statement:
+The **power set** of a set is the set of all its subsets, including the empty set and the set itself. Write a function that, given a set, generates its power set.
 
-You may also use a list or array to represent a set.
+You may represent the set using a list or array.
+
+### Example:
+**Input**:
+```plaintext
+set = {1, 2, 3}
+```
+**Output**:
+```plaintext
+{{}, {1}, {2}, {3}, {1, 2}, {1, 3}, {2, 3}, {1, 2, 3}}
+```

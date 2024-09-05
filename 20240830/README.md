@@ -1,3 +1,20 @@
-A builder is looking to build a row of N houses that can be of K different colors. He has a goal of minimizing cost while ensuring that no two neighboring houses are of the same color.
+# Problem: Minimum Cost to Build Houses with Different Colors
 
-Given an N by K matrix where the nth row and kth column represents the cost to build the nth house with kth color, return the minimum cost which achieves this goal.
+## Problem Statement:
+A builder is looking to build a row of `N` houses that can be painted in `K` different colors. The goal is to **minimize the cost** of painting the houses while ensuring that **no two neighboring houses** are painted the same color.
+
+You are given an `N x K` matrix, where the `n`th row and `k`th column represents the cost to build the `n`th house with the `k`th color. Your task is to return the **minimum cost** which satisfies the goal.
+
+### Example:
+**Input**:
+```plaintext
+costs = [
+  [17, 2, 17],
+  [16, 16, 5],
+  [14, 3, 19]
+]
+```
+**Output**:
+```plaintext
+10
+```

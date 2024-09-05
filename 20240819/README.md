@@ -1,8 +1,18 @@
+# Problem: Find the Smallest Number of Steps to Reach 1
+
+## Problem Statement:
 Given a positive integer `N`, find the smallest number of steps it will take to reach `1`.
 
-There are two kinds of permitted steps:
+### Permitted Steps:
+1. You may decrement `N` to `N - 1`.
+2. If `a * b = N`, you may decrement `N` to the **larger** of `a` and `b`.
 
-    You may decrement `N` to `N - 1`.
-    If `a * b = N`, you may decrement `N` to the larger of `a` and `b`.
-
-For example, given `100`, you can reach 1 in five steps with the following route: `100 -> 10 -> 9 -> 3 -> 2 -> 1`.
+### Example:
+**Input**:
+```plaintext
+N = 100
+```
+**Output**:
+```plaintext
+5
+```
