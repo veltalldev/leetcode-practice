@@ -53,15 +53,12 @@ void main() {
         int size1 = 30000000;
         int size2 = 60000000;
         int size3 = 240000000;
-        // Test case 1: Input of size 10^7
         final input1 = List.generate(size1, (index) => index % 100 - 50);
         final time1 = measureExecutionTime(input1);
 
-        // Test case 2: Input of size 10^8
         final input2 = List.generate(size2, (index) => index % 100 - 50);
         final time2 = measureExecutionTime(input2);
 
-        // Test case 3: Input of size 10^9
         final input3 = List.generate(size3, (index) => index % 100 - 50);
         final time3 = measureExecutionTime(input3);
 
@@ -77,12 +74,13 @@ void main() {
         // Expect the ratios to be roughly linear
         final goal1 = 2;
         final goal2 = 4;
-        final toleranceMargin = 1.1; // 10% tolerance
-        expect(ratio1, lessThanOrEqualTo(goal1 * toleranceMargin),
-            reason: 'Runtime for 6x10^7 should be roughly 2x that for 3x10^7.');
-        expect(ratio2, lessThanOrEqualTo(goal2 * toleranceMargin),
+        final tolerance = 0.1; // 10% tolerance
+        expect(ratio1, lessThanOrEqualTo(goal1 * (1 + tolerance)),
             reason:
-                'Runtime for 24x10^7 should be roughly 4x that for 6x10^7.');
+                'Runtime for $size2 should be roughly ${goal1}x that for $size1.');
+        expect(ratio2, lessThanOrEqualTo(goal2 * (1 + tolerance)),
+            reason:
+                'Runtime for $size3 should be roughly ${goal2}x that for $size2.');
       });
     });
   });
