@@ -39,4 +39,51 @@ void main() {
           equals(137));
     });
   });
+  group('Performance tests for findLargestContiguousSum', () {
+    group('Performance tests for findLargestContiguousSum', () {
+      // Helper function to measure the execution time of findLargestContiguousSum
+      int measureExecutionTime(List<int> input) {
+        final startTime = DateTime.now();
+        findLargestContiguousSum(input); // Replace with your solution function
+        final endTime = DateTime.now();
+        return endTime.difference(startTime).inMilliseconds;
+      }
+
+      test('should exhibit linear growth for increasing input sizes', () {
+        int size1 = 30000000;
+        int size2 = 60000000;
+        int size3 = 240000000;
+        // Test case 1: Input of size 10^7
+        final input1 = List.generate(size1, (index) => index % 100 - 50);
+        final time1 = measureExecutionTime(input1);
+
+        // Test case 2: Input of size 10^8
+        final input2 = List.generate(size2, (index) => index % 100 - 50);
+        final time2 = measureExecutionTime(input2);
+
+        // Test case 3: Input of size 10^9
+        final input3 = List.generate(size3, (index) => index % 100 - 50);
+        final time3 = measureExecutionTime(input3);
+
+        // Printing out the times for visual comparison (optional)
+        print('Execution time for input size $size1: $time1 ms');
+        print('Execution time for input size $size2: $time2 ms');
+        print('Execution time for input size $size3: $time3 ms');
+
+        // Compare the runtime ratios between different input sizes
+        final ratio1 = time2 / time1;
+        final ratio2 = time3 / time2;
+
+        // Expect the ratios to be roughly linear
+        final goal1 = 2;
+        final goal2 = 4;
+        final toleranceMargin = 1.1; // 10% tolerance
+        expect(ratio1, lessThanOrEqualTo(goal1 * toleranceMargin),
+            reason: 'Runtime for 6x10^7 should be roughly 2x that for 3x10^7.');
+        expect(ratio2, lessThanOrEqualTo(goal2 * toleranceMargin),
+            reason:
+                'Runtime for 24x10^7 should be roughly 4x that for 6x10^7.');
+      });
+    });
+  });
 }
