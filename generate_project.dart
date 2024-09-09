@@ -21,7 +21,7 @@ void main(List<String> arguments) async {
     '$projectName/lib/naive.dart': '/// $projectName', // Sample Dart file
     '$projectName/test/naive_test.dart': '''
 import 'package:test/test.dart';
-import ''../lib/naive.dart'';
+import '../lib/naive.dart';
 
 void main() {
   test('sample test', () {
@@ -34,7 +34,7 @@ name: leetcode$projectName
 description: 
 version: 1.0.0
 environment:
-  sdk: '>=2.17.0 <3.0.0'
+  sdk: '>=3.0.0 <=4.0.0'
 dependencies:
   collection: ^1.16.0
 dev_dependencies:
