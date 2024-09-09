@@ -5,6 +5,7 @@ import 'dart:math';
 /// current subarray is:
 /// - when the current value nums[i] or nums[j] is a negative number
 /// - when a rolling sum from i to i+k yields a negative value.
+///
 /// which effectively can be encompassed by the rolling sum condition
 
 int findLargestContiguousSum(List<int> nums) {
