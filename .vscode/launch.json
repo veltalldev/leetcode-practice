@@ -1,0 +1,92 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "20240815",
+            "cwd": "20240815",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "20240819",
+            "cwd": "20240819",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "20240820",
+            "cwd": "20240820",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "20240824",
+            "cwd": "20240824",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "20240825",
+            "cwd": "20240825",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "20240827",
+            "cwd": "20240827",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "20240829",
+            "cwd": "20240829",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "20240830",
+            "cwd": "20240830",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "20240831",
+            "cwd": "20240831",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "20240901",
+            "cwd": "20240901",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "20240902",
+            "cwd": "20240902",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "20240903",
+            "cwd": "20240903",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "20240904",
+            "cwd": "20240904",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "20240906",
+            "cwd": "20240906",
+            "request": "launch",
+            "type": "dart"
+        }
+    ]
+}

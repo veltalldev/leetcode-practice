@@ -1,0 +1,12 @@
+name: leetcode0904
+
+description: Implement a Stack API Using Only a Heap
+
+environment:
+  sdk: ">=3.0.0 <4.0.0"
+
+dependencies:
+  collection: ^1.16.0
+
+dev_dependencies:
+  test: ^1.25.8

@@ -1,0 +1,10 @@
+name: leetcode20240909
+description: 
+version: 1.0.0
+environment:
+  sdk: '>=2.17.0 <3.0.0'
+dependencies:
+  collection: ^1.16.0
+
+dev_dependencies:
+  test: ^1.25.8

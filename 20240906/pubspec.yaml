@@ -1,0 +1,12 @@
+name: leetcode0906
+
+description: Contiguous subarray with largest sum
+
+environment:
+  sdk: ">=3.0.0 <4.0.0"
+
+dependencies:
+  collection: ^1.16.0
+
+dev_dependencies:
+  test: ^1.25.8
