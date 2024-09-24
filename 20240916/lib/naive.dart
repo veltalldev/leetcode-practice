@@ -27,25 +27,25 @@ int minimumJump(List<int> arr) {
     if (jumpCount > 10) {
       return jumpCount;
     }
-    // check all options and their implications
     final jumpSize = arr[current];
     var maxScore = 0;
     var destination = 0;
-    for (var i = 1; i <= jumpSize; i++) {
-      if (current + i >= lastIndex) {
+    // check all options and their implications
+    for (var jumpStep = 1; jumpStep <= jumpSize; jumpStep++) {
+      if (current + jumpStep >= lastIndex) {
         // found the last jump, no further need to optimize, just jump
         return ++jumpCount;
       }
       // valid jump option, go ahead and check its score + update max
-      final jumpScore = (i + arr[current + i]);
+      final jumpScore = (jumpStep + arr[current + jumpStep]);
       if (jumpScore > maxScore) {
         maxScore = jumpScore;
-        destination = i;
+        destination = current + jumpStep;
       }
     }
     // found the biggest jump destination, make that jump
     jumpCount++;
-    current += destination;
+    current = destination;
   }
   return jumpCount;
 }

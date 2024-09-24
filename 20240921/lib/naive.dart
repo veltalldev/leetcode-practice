@@ -1,5 +1,7 @@
 import 'dart:math';
 
+import 'package:collection/collection.dart';
+
 /// 20240921
 /// See file problem_outline.md for details on train of thought
 
@@ -18,38 +20,89 @@ List<int> knapsackRound(List<double> X, List<int> Y, int budget) {
   final n = Y.length;
   // define the cost-weight matrix
   final dp = List.generate(
-    n,
-    (_) => List.filled(budget, budget.toDouble()),
+    n + 1,
+    (_) => List.filled(budget + 1, 10.0),
   ); // high default cost
 
   // initialize the cost-weight matrix:
   // given a budget of 0, none of the entries can be rounded up
+  // the smallest differences are just the default values
   for (var i = 0; i < n; i++) {
-    dp[i][0] = (X[i] - Y[i]).abs();
+    dp[i][0] = 10.0;
+  }
+  // if none of the numbers are considered, no matter what the budget is
+  // nothing can be rounded, the smallest D is the default
+  for (var j = 1; j <= budget; j++) {
+    dp[0][j] = 10.0;
   }
 
-  final roundSet = <int>{};
+  final roundQueue = PriorityQueue<int>();
 
-  for (var i = 0; i < n; i++) {
-    for (var j = 1; j < budget; j++) {
-      final pairwiseDifference = Y[i] + 1 - X[i];
+  print("looping i from 1 to <$n");
+  for (var i = 1; i <= n; i++) {
+    final arrayIndex = i - 1;
+    print("\tlooping j from 1 to <=$budget");
+    for (var j = 1; j <= budget; j++) {
+      final pairwiseDifferenceSum = findPWDifferenceSum(Y, X, arrayIndex);
       final maintain = dp[i - 1][j];
-      final ceil = pairwiseDifference + dp[i - 1][j - 1];
-      if (maintain < ceil) {
+      final ceil = pairwiseDifferenceSum;
+      print("\t\ti = $i; j = $j");
+      print("\t\tdp = $dp");
+      print("\t\tdp[$i][$j] = ${dp[i][j]}");
+      print("\t\tmaintain value = dp[$i - 1][$j] = $maintain");
+      print("\t\trounding value = $ceil");
+      if (maintain > ceil) {
         dp[i][j] = ceil;
-        roundSet.add(i); // mark index i as having been rounded up
+        if (roundQueue.length >= budget) {
+          roundQueue.removeFirst();
+        }
+        roundQueue.add(arrayIndex); // mark index as having been rounded up
+        print("\t\trounding up index $arrayIndex, value ${X[arrayIndex]}");
+        print("\t\troundSet = $roundQueue");
       } else {
         dp[i][j] = maintain;
-        roundSet.remove(i);
+        roundQueue.removeFirst();
+        print("\t\tmaintaining index $arrayIndex, value ${X[arrayIndex]}");
+        print("\t\troundSet = $roundQueue");
       }
     }
   }
 
+  print("final dp = $dp");
+
   // roundSet "should" contain all the indices that need to be rounded up
   // to achieve the optimal result
   // ????? not really sure ????
-  roundSet.forEach((index) {
+  roundQueue.toList().forEach((index) {
     Y[index] = Y[index] + 1; // actually round the array
   });
   return Y;
+}
+
+double findPWDifferenceSum(List<int> Y, List<double> X, int ceilIndex) {
+  print("DEBUG: X = $X");
+  print("       Y = $Y");
+  print("incrementing index = $ceilIndex");
+  final errors = List.generate(
+      Y.length, (i) => ((X[i] - Y[i]).abs() * 100).round() / 100.0);
+  final delta = (X[ceilIndex].ceil() - X[ceilIndex]).abs();
+  errors[ceilIndex] = ((delta) * 100).round() / 100.0;
+  print("error array = $errors");
+  var sum = errors.reduce((a, b) => a + b);
+  return (sum * 100).round() / 100.0;
+}
+
+bool areBasicallyEqual(a, b) {
+  final epsilon = 1e9;
+  return (a - b).abs() < epsilon;
+}
+
+bool isSufficientlyLessThan(a, b) {
+  final epsilon = 1e9;
+  return a - b < -epsilon;
+}
+
+bool isSufficientlyGreaterThan(a, b) {
+  final epsilon = 1e9;
+  return a - b > epsilon;
 }
