@@ -1,5 +1,3 @@
-import 'dart:io';
-
 /// 20240922
 /// This is a rather standard linked list manipulation problem
 /// The key idea is to create new links before losing connection to the
@@ -55,10 +53,11 @@ class MyStack<T> {
   }
 }
 
-// this function recursively calls the next part of the list and assumes that
-// it has already been reversed, so it finishes the reversal by linking the
-// returned tail of the list to the node currently being processed, which
-// becomes the new tail and is returned
+/// The process involves iterating through the list, setting each node’s
+/// `next` pointer to point to the previous node (reversing the link),
+/// and updating the pointers to move forward.
+/// This continues until all nodes have been reversed, and the function
+/// finally returns the new root.
 LinkedListNode reverseLinkedListIterative(LinkedListNode root) {
   if (root.next == null) {
     return root;
