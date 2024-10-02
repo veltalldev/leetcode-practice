@@ -6,6 +6,12 @@ import 'dart:typed_data';
 /// So I didn't know anything about this data structure and had to
 /// accidentally come across it in my research. I will implement this
 /// for practice nevertheless.
+///
+/// Since dart doesn't support a true boolean datatype, we simulate this
+/// bit-level operation by using an 8-bit int datatype.
+/// For each position `k` in the bitarray, the 8-bit int that contains
+/// `k` is `k ~/ 8` (because each int can hold 8 bits), and the position of
+/// the bit in that byte int is `k % 8`
 
 class BloomFilterSet<T> {
   final databits = Uint8List(1 << 24);
@@ -18,20 +24,20 @@ class BloomFilterSet<T> {
   ];
 
   void add(T value) {
-    final bitPositions = hashFunctions.map((hashFunction) {
-      return hashFunction(value);
+    final bitPositions = hashFunctions.map((f) {
+      return f(value);
     }).toList();
 
     bitPositions.forEach((pos) {
       final index = pos ~/ 8; // access the byte that contains this bit
       final bitmask = 1 << (pos % 8); // mask the bit that needs to change
-      databits[index] |= bitmask; // apply mask to flip the bit
+      databits[index] |= bitmask; // apply mask to flip the bit or maintain
     });
   }
 
   bool check(T value) {
-    final bitPositions = hashFunctions.map((hashFunction) {
-      return hashFunction(value);
+    final bitPositions = hashFunctions.map((f) {
+      return f(value);
     }).toList();
 
     return bitPositions.every((pos) {
