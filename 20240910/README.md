@@ -1,24 +1,9 @@
-# Deepest Node in a Binary Tree
+### Container with Most Water (Two Pointers)
 
-## Problem Definition
+Given `n` non-negative integers `height` where each represents a point at coordinate `(i, height[i])`, `n` vertical lines are drawn such that the two endpoints of the line `i` are at `(i, 0)` and `(i, height[i])`.
 
-### Objective
-Given the root of a binary tree, find and return the **deepest node** in the tree. The deepest node is defined as the node that is farthest from the root. If multiple nodes share the same depth, return any one of the deepest nodes.
+Find two lines, which together with the x-axis forms a container, such that the container contains the most water.
 
-### Example
-
-Consider the following binary tree:
-
-```plaintext
-    a
-   / \
-  b   c
- /
-d
-```
-
-In this tree, the deepest node is **d**, which is at the greatest distance from the root.
-
-### Notes
-- Each node in the binary tree has a unique value.
-- If the tree consists of a single node, that node is considered the deepest.
+#### Example:
+Input: `height = [1,8,6,2,5,4,8,3,7]`
+Output: `49`
