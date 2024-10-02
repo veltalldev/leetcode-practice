@@ -59,13 +59,30 @@ class MyStack<T> {
 // it has already been reversed, so it finishes the reversal by linking the
 // returned tail of the list to the node currently being processed, which
 // becomes the new tail and is returned
-LinkedListNode reverseLinkedListRecursive(LinkedListNode root) {
-  LinkedListNode current = root;
-  if (current.hasNext()) {
-    var next = reverseLinkedListRecursive(current.next!);
-    next.linkTo(current); // reverse the link
+LinkedListNode reverseLinkedListIterative(LinkedListNode root) {
+  if (root.next == null) {
+    return root;
   }
-  return current;
+  if (root.next!.next == null) {
+    // only 2 nodes, reverse manually
+    var newRoot = root.next;
+    newRoot!.linkTo(root);
+    root.next = null;
+    return newRoot;
+  }
+  var prev = root;
+  var current = prev.next;
+  var next = current!.next;
+  prev.next = null;
+  while (current != null) {
+    current.linkTo(prev);
+    prev = current;
+    current = next;
+    if (current != null) {
+      next = current.next;
+    }
+  }
+  return prev;
 }
 
 // this function utilizes a stack to reverse the order of traversal
