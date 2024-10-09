@@ -25,7 +25,6 @@
   }
 
   if (left == null) {
-    // array already sorted
     return (-1, -1);
   }
   return (left, right!);
