@@ -22,23 +22,23 @@ bool equalPartitionSums(List<int> nums) {
   }
   final targetSum = sum ~/ 2;
 
-  final DP =
+  final dp =
       List.generate(nums.length + 1, (_) => List.filled(targetSum + 1, false));
   // initialization: can make sum 0 with 0 numbers
-  DP[0][0] = true;
+  dp[0][0] = true;
 
   for (var i = 1; i <= nums.length; i++) {
     for (var j = 0; j <= targetSum; j++) {
       if (j < nums[i - 1]) {
         // if sum is smaller than value being considered, cannot choose number
         // can only inherit the sum if it already happened
-        DP[i][j] = DP[i - 1][j];
+        dp[i][j] = dp[i - 1][j];
       } else {
         // choose to take the number || not take the number
-        DP[i][j] = DP[i - 1][j - nums[i - 1]] || DP[i - 1][j];
+        dp[i][j] = dp[i - 1][j - nums[i - 1]] || dp[i - 1][j];
       }
     }
   }
 
-  return DP[nums.length][targetSum];
+  return dp[nums.length][targetSum];
 }
