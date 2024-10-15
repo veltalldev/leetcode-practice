@@ -1,5 +1,3 @@
-import 'dart:math';
-
 /// 20241011
 ///
 /// Revisiting the House Painting problem after some
@@ -30,6 +28,7 @@ int minCostToPaintHouses(List<List<int>> costs) {
     }
   }
 
+  // retrieve the result
   final (min1, _) = findMins(dp, n - 1);
   return min1;
 }
