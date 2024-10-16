@@ -21,13 +21,8 @@ void main(List<String> arguments) async {
     '$projectName/lib/naive.dart': '/// $projectName', // Sample Dart file
     '$projectName/test/naive_test.dart': '''
 import 'package:test/test.dart';
-import '../lib/naive.dart';
+import 'package:$projectName/lib/naive.dart';
 
-void main() {
-  test('sample test', () {
-    expect(true, isTrue);
-  });
-}
 ''',
     '$projectName/pubspec.yaml': '''
 name: leetcode$projectName
