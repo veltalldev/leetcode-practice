@@ -21,7 +21,7 @@ void main(List<String> arguments) async {
     '$projectName/lib/naive.dart': '/// $projectName', // Sample Dart file
     '$projectName/test/naive_test.dart': '''
 import 'package:test/test.dart';
-import 'package:$projectName/lib/naive.dart';
+import 'package:leetcode$projectName/lib/naive.dart';
 
 ''',
     '$projectName/pubspec.yaml': '''

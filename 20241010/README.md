@@ -9,17 +9,15 @@ You are given an integer array `nums` and an integer `target`. You want to assig
 **Output**: `5`  
 **Explanation**: There are 5 ways to assign signs to the elements to reach the target 3:  
 
-```
--1 + 1 + 1 + 1 + 1 = 3
-+1 - 1 + 1 + 1 + 1 = 3
-+1 + 1 - 1 + 1 + 1 = 3
-+1 + 1 + 1 - 1 + 1 = 3
-+1 + 1 + 1 + 1 - 1 = 3
-```
+    -1 + 1 + 1 + 1 + 1 = 3
+    +1 - 1 + 1 + 1 + 1 = 3
+    +1 + 1 - 1 + 1 + 1 = 3
+    +1 + 1 + 1 - 1 + 1 = 3
+    +1 + 1 + 1 + 1 - 1 = 3
 
 ### Example 2:
-**Input**:  
-`nums = [1]`, `target = 1`  
+**Input**: `nums = [1]`, `target = 1`  
+
 **Output**: `1`  
 
 ### Constraints:
