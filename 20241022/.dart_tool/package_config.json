@@ -33,9 +33,9 @@
     },
     {
       "name": "boolean_selector",
-      "rootUri": "file:///home/velt/.pub-cache/hosted/pub.dev/boolean_selector-2.1.1",
+      "rootUri": "file:///home/velt/.pub-cache/hosted/pub.dev/boolean_selector-2.1.2",
       "packageUri": "lib/",
-      "languageVersion": "2.17"
+      "languageVersion": "3.1"
     },
     {
       "name": "collection",
@@ -255,7 +255,7 @@
     },
     {
       "name": "vm_service",
-      "rootUri": "file:///home/velt/.pub-cache/hosted/pub.dev/vm_service-14.3.0",
+      "rootUri": "file:///home/velt/.pub-cache/hosted/pub.dev/vm_service-14.3.1",
       "packageUri": "lib/",
       "languageVersion": "3.3"
     },
@@ -296,13 +296,13 @@
       "languageVersion": "2.19"
     },
     {
-      "name": "leetcode20241021",
+      "name": "leetcode20241022",
       "rootUri": "../",
       "packageUri": "lib/",
       "languageVersion": "3.0"
     }
   ],
-  "generated": "2024-10-22T21:26:40.801623Z",
+  "generated": "2024-10-22T21:27:21.608417Z",
   "generator": "pub",
   "generatorVersion": "3.5.3",
   "pubCache": "file:///home/velt/.pub-cache"
