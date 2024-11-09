@@ -1,5 +1,5 @@
 import 'package:test/test.dart';
-import 'package:leetcode20241018/lib/naive.dart';
+import 'package:leetcode20241018/naive.dart';
 
 void main() {
   test('Spiral order test 1', () {
