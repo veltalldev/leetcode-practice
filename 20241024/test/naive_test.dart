@@ -5,7 +5,7 @@ void main() {
   test('single node tree', () {
     final a = TreeNode();
     expect(
-      findMaxPathLengthInTreeHelper(a),
+      findMaxPathLengthInTree(a),
       equals(0),
     );
   });
@@ -22,7 +22,7 @@ void main() {
     a.addChild(b, 2);
     b.addChild(c, 3);
     expect(
-      findMaxPathLengthInTreeHelper(a),
+      findMaxPathLengthInTree(a),
       equals(5),
     );
   });
@@ -40,7 +40,7 @@ void main() {
     a.addChild(c, 5);
     a.addChild(d, 3);
     expect(
-      findMaxPathLengthInTreeHelper(a),
+      findMaxPathLengthInTree(a),
       equals(8),
     ); // should be path c->a->b
   });
@@ -64,7 +64,7 @@ void main() {
     b.addChild(e, 1);
     d.addChild(f, 1);
 
-    expect(findMaxPathLengthInTreeHelper(a), equals(4)); // e->b->a->d->f
+    expect(findMaxPathLengthInTree(a), equals(4)); // e->b->a->d->f
   });
 
   test('tie break with ascending vs descending weights', () {
@@ -93,7 +93,7 @@ void main() {
     c.addChild(e, 2);
     e.addChild(g, 1);
 
-    expect(findMaxPathLengthInTreeHelper(a), equals(12)); // f->d->b->a->c->e->g
+    expect(findMaxPathLengthInTree(a), equals(12)); // f->d->b->a->c->e->g
   });
 
   test('large weight at bottom', () {
@@ -113,6 +113,6 @@ void main() {
     c.addChild(d, 50);
     c.addChild(e, 100);
 
-    expect(findMaxPathLengthInTreeHelper(a), equals(150)); // d->c->e
+    expect(findMaxPathLengthInTree(a), equals(150)); // d->c->e
   });
 }

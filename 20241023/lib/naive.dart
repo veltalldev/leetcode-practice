@@ -13,8 +13,10 @@
 /// 6. Then we need to sort the rest of the numbers to produce the smallest config
 
 String nextLexicographicalPermutation(int n) {
+  // converting number to list of digits for processing
   final digits = n.toString().split("").map((s) => int.parse(s)).toList();
 
+  // search for swap target
   var swapIndex = digits.length - 2; // need at least 2 numbers to need swap
   while (true && swapIndex > 0) {
     if (digits[swapIndex] < digits[swapIndex + 1]) {
@@ -56,4 +58,3 @@ String nextLexicographicalPermutation(int n) {
 
   return digits.join("");
 }
-

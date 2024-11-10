@@ -19,13 +19,13 @@ class TreeNode {
 }
 
 // recursive helper
-int findMaxPathLengthInTreeHelper(TreeNode root) {
-  final (maxTo, maxThrough) = findMaxPathLengthInTree(root);
+int findMaxPathLengthInTree(TreeNode root) {
+  final (maxTo, maxThrough) = _findMaxPathLengthInTree(root);
   return max(maxTo, maxThrough);
 }
 
 // recursive routine
-(int, int) findMaxPathLengthInTree(TreeNode current) {
+(int, int) _findMaxPathLengthInTree(TreeNode current) {
   // base case
   if (current.isLeaf()) {
     return (0, 0);
@@ -33,7 +33,7 @@ int findMaxPathLengthInTreeHelper(TreeNode root) {
 
   // 1. recursively call child nodes to get and store their information
   final childrenInfo = current.children.map((childNode) {
-    return findMaxPathLengthInTree(childNode);
+    return _findMaxPathLengthInTree(childNode);
   });
   final toValues = <int>[];
   final throughValues = <int>[];
