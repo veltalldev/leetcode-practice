@@ -1,71 +1,143 @@
+import 'dart:math';
+
 import 'package:test/test.dart';
-import 'package:leetcode20241028/src/trie/trie_node.dart';
+import 'package:leetcode20241028/src/trie/trie.dart';
 
 void main() {
-  group('TrieNode', () {
-    late TrieNode node;
+  group('trie', () {
+    late Trie trie;
 
     setUp(() {
-      node = TrieNode(); // called every test
+      trie = Trie();
     });
 
-    test('should initialize with empty children and !isEndOfWord', () {
-      expect(node.children, isEmpty);
-      expect(node.isEndOfWord, isFalse);
+    // init test
+    test('initialized trie should contains no words', () {
+      final count = trie.wordCount;
+      expect(count, equals(0));
     });
 
-    group('hasChild', () {
-      test('should return false for non-existent child', () {
-        expect(node.hasChild('a'), isFalse);
+    group('insert', () {
+      test('singleton insert', () {
+        trie.insert('test');
+        expect(trie.contains('test'), isTrue);
+        expect(trie.wordCount, equals(1));
       });
-      test('should return true for existing child', () {
-        node.addChild('a');
-        expect(node.hasChild('a'), isTrue);
+      test('many inserts', () {
+        final words = "hello world from the other side";
+        final wordList = words.split(" ");
+        wordList.forEach((word) => trie.insert(word));
+        wordList.forEach((word) => expect(
+              trie.contains(word),
+              isTrue,
+            ));
+        expect(trie.wordCount, equals(wordList.length));
+      });
+
+      test('duplicate word insertion', () {
+        trie.insert('test');
+        trie.insert('test');
+        expect(trie.wordCount, equals(1));
+      });
+
+      test('empty string insertion', () {
+        trie.insert('');
+        expect(trie.contains(''), isTrue);
+        expect(trie.wordCount, equals(1));
+      });
+    });
+    group('contains', () {
+      setUp(() {
+        trie.insert('test');
+        trie.insert('membership');
+        trie.insert('trie');
+      });
+
+      test('existing complete words', () {
+        expect(trie.contains('test'), isTrue);
+        expect(trie.contains('membership'), isTrue);
+        expect(trie.contains('trie'), isTrue);
+      });
+
+      test('non-existent words', () {
+        expect(trie.contains('word'), isFalse);
+        expect(trie.contains('cap'), isFalse);
+        expect(trie.contains('sheeesh'), isFalse);
+      });
+
+      test('incomplete words / prefix only', () {
+        expect(trie.contains('te'), isFalse);
+        expect(trie.contains('she'), isFalse);
       });
     });
 
-    group('getChild', () {
-      test('should return null for non-existent child', () {
-        expect(node.getChild('a'), isNull);
+    group('findWordsWithPrefix', () {
+      late final List<String> words;
+      setUp(() {
+        words = "test team tea testing teammate".split(' ');
+        words.forEach(trie.insert);
       });
-      test('should return child node for existing child', () {
-        final child = node.addChild('a');
-        expect(node.getChild('a'), equals(child));
+
+      test('find all words with prefix `te`', () {
+        final prefix = 'te';
+        final searchResults = trie.findWordsWithPrefix(prefix);
+        expect(searchResults.length, equals(words.length));
+        expect(searchResults, containsAll(words));
+      });
+
+      test('find subset of words with longer prefix `tea`', () {
+        final prefix = 'tea';
+        final searchResults = trie.findWordsWithPrefix(prefix);
+        expect(searchResults.length, equals(words.length));
+        expect(searchResults, containsAll(words));
+      });
+
+      test('finds single word with exact match', () {
+        final prefix = 'teammate';
+        final searchResults = trie.findWordsWithPrefix(prefix);
+        expect(searchResults.length, equals(words.length));
+        expect(searchResults, containsAll(words));
+        expect(trie.contains('teammate'), isTrue);
+      });
+
+      test('non-matching prefix', () {
+        final badPrefix = 'badPrefix';
+        final searchResults = trie.findWordsWithPrefix(badPrefix);
+        expect(searchResults, isEmpty);
+      });
+
+      test('returns empty list for empty prefix (default)', () {
+        final searchResults = trie.findWordsWithPrefix('');
+        expect(searchResults, isEmpty);
+      });
+
+      test('returns full list for empty prefix with flag', () {
+        final searchResults = trie.findWordsWithPrefix('');
+        expect(searchResults.length, equals(words.length));
       });
     });
 
-    group('addChild', () {
-      test('should create new child node if none exists', () {
-        final child = node.addChild('a');
-        expect(child, isNotNull);
-        expect(node.children['a'], equals(child));
+    group('edge cases', () {
+      test('case sensitivity', () {
+        trie.insert('Test');
+        expect(trie.contains('Test'), isTrue);
+        expect(trie.contains('test'), isFalse);
       });
 
-      test('should return existing child if already exists', () {
-        final firstChild = node.addChild('a');
-        final secondChild = node.addChild('a');
-        expect(secondChild, equals(firstChild));
-        expect(node.children.length, equals(1));
+      test('special characters', () {
+        trie.insert('password1234!');
+        expect(trie.contains('password1234'), isFalse);
+        expect(trie.contains('password1234!'), isTrue);
       });
 
-      test('should create distinct nodes for different characters', () {
-        final childA = node.addChild('a');
-        final childB = node.addChild('b');
-        expect(node.children.length, equals(2));
-        expect(childA, isNot(equals(childB)));
+      test('unicode characters', () {
+        trie.insert('café');
+        trie.insert('résumé');
+        expect(trie.contains('café'), isTrue);
+        expect(trie.contains('cafe'), isFalse);
+        var words = trie.findWordsWithPrefix('ré');
+        expect(words, contains('résumé'));
       });
-    });
-
-    // integration
-    test('should support multiple levels of children', () {
-      final childA = node.addChild('a');
-      final childB = childA.addChild('b');
-      final childC = childB.addChild('c');
-
-      expect(node.hasChild('a'), isTrue);
-      expect(childA.hasChild('b'), isTrue);
-      expect(childB.hasChild('c'), isTrue);
-      expect(childC.children, isEmpty);
     });
   });
 }

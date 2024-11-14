@@ -31,7 +31,9 @@ class Trie {
   /// Returns:
   ///   A list of all words that start with the given prefix.
   ///   An empty list if no words are found with the given prefix.
-  List<String> findWordsWithPrefix(String prefix) {
+  List<String> findWordsWithPrefix(String prefix,
+      {bool includeEmptyPrefix = false}) {
+    if (prefix.isEmpty && !includeEmptyPrefix) return <String>[];
     var current = _root;
     var results = <String>[];
 
