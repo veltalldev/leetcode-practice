@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:test/test.dart';
 import 'package:leetcode20241028/src/trie/trie.dart';
 
@@ -72,7 +70,7 @@ void main() {
     });
 
     group('findWordsWithPrefix', () {
-      late final List<String> words;
+      late List<String> words;
       setUp(() {
         words = "test team tea testing teammate".split(' ');
         words.forEach(trie.insert);
@@ -88,15 +86,13 @@ void main() {
       test('find subset of words with longer prefix `tea`', () {
         final prefix = 'tea';
         final searchResults = trie.findWordsWithPrefix(prefix);
-        expect(searchResults.length, equals(words.length));
-        expect(searchResults, containsAll(words));
+        expect(searchResults.length, equals(3));
       });
 
       test('finds single word with exact match', () {
         final prefix = 'teammate';
         final searchResults = trie.findWordsWithPrefix(prefix);
-        expect(searchResults.length, equals(words.length));
-        expect(searchResults, containsAll(words));
+        expect(searchResults.length, equals(1));
         expect(trie.contains('teammate'), isTrue);
       });
 
@@ -112,7 +108,10 @@ void main() {
       });
 
       test('returns full list for empty prefix with flag', () {
-        final searchResults = trie.findWordsWithPrefix('');
+        final searchResults = trie.findWordsWithPrefix(
+          '',
+          includeEmptyPrefix: true,
+        );
         expect(searchResults.length, equals(words.length));
       });
     });
