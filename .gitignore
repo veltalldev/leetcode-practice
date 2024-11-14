@@ -1,0 +1,20 @@
+# Dart specific - for all date-based project directories
+*/.dart_tool/
+*/build/
+*/pubspec.lock
+
+# IDE specific
+.idea/
+.vscode/
+*.iml
+
+# Miscellaneous
+.DS_Store
+*.log
+
+# Keep all pubspec.yaml files
+!*/pubspec.yaml
+
+# Keep all lib and test directories
+!*/lib/
+!*/test/
