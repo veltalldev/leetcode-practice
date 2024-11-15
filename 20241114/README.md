@@ -68,7 +68,7 @@ UTF-8 is a variable-width character encoding that uses one to four bytes to repr
 4. Invalid continuation bytes
 
 ## Constraints
-- Input array length: 1 ≤ n ≤ 10^4
+- Input array length: 1 ≤ n ≤ 4 (only validate one character at a time)
 - Byte values: 0 ≤ value ≤ 255
 
 ## Performance Requirements
