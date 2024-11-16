@@ -20,9 +20,6 @@ class UTF8Validator {
   static const _MIN_BYTE_VALUE = 0;
   static const _MAX_BYTE_VALUE = 255;
 
-  /// Creates a UTF8_Validator instance
-  UTF8Validator();
-
   /// Investigates unknown forms of representation for the UTF-8
   /// encoded character and dispatches the processing responsibility.
   ///
@@ -63,7 +60,7 @@ class UTF8Validator {
     // throws [RangeError] if any value is not in valid range
     _validateByteRange(bytes);
 
-    return _validateUTF8ByteList(bytes);
+    return _validateUTF8Patterns(bytes);
   }
 
   /// Validates that all byte values are within valid range [0-255].
@@ -91,33 +88,26 @@ class UTF8Validator {
   ///
   /// Output: True if the integer-based byte values constitute a valid
   ///         UTF8 encoded character, false otherwise.
-  bool _validateUTF8ByteList(List<int> bytes) {
-    final maskTwoBytes = 0xE0; // 11100000
-    final patternTwoBytes = 0xC0; // 11000000
-
-    final maskThreeBytes = 0xF0; // 11110000
-    final patternThreeBytes = 0xE0; // 11100000
-
-    final maskFourBytes = 0xF8; // 11111000
-    final patternFourBytes = 0xF0; // 11110000
-
-    final maskContinuation = 0xC0; // 11000000
-    final patternContinuation = 0x80; // 10000000
-
-    // helper functions to apply masks
+  /// Validates UTF-8 bit patterns for the byte sequence.
+  bool _validateUTF8Patterns(List<int> bytes) {
+    // helper functions to check byte pattern
     bool hasValidPrefix(int byte, int mask, int pattern) =>
         (byte & mask) == pattern;
-    bool isValidContinuation(int byte) =>
-        hasValidPrefix(byte, maskContinuation, patternContinuation);
+
+    // Specifically check pattern for continuation bytes
+    bool _validateContinuationBytes(List<int> contBytes) {
+      return contBytes
+          .every((byte) => (byte & _CONT_BYTE_MASK) == _CONT_BYTE_PATTERN);
+    }
 
     return switch (bytes.length) {
-      1 => bytes[0] < (1 << 7),
-      2 => hasValidPrefix(bytes[0], maskTwoBytes, patternTwoBytes) &&
-          isValidContinuation(bytes[1]),
-      3 => hasValidPrefix(bytes[0], maskThreeBytes, patternThreeBytes) &&
-          bytes.sublist(1).every(isValidContinuation),
-      4 => hasValidPrefix(bytes[0], maskFourBytes, patternFourBytes) &&
-          bytes.sublist(1).every(isValidContinuation),
+      1 => (bytes[0] & _SINGLE_BYTE_MASK) == 0,
+      2 => hasValidPrefix(bytes[0], _TWO_BYTES_MASK, _TWO_BYTES_PATTERN) &&
+          _validateContinuationBytes(bytes.sublist(1)),
+      3 => hasValidPrefix(bytes[0], _THREE_BYTES_MASK, _THREE_BYTES_PATTERN) &&
+          _validateContinuationBytes(bytes.sublist(1)),
+      4 => hasValidPrefix(bytes[0], _FOUR_BYTES_MASK, _FOUR_BYTES_PATTERN) &&
+          _validateContinuationBytes(bytes.sublist(1)),
       _ => false
     };
   }
