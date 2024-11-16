@@ -1,8 +1,10 @@
-/// A validator for UTF-8 encoded characters with various forms
-/// of representation.
+/// A validator for UTF-8 encoded character sequences.
 ///
-/// This validator takes in a representation of one UTF-8 encoded
-/// character and validates it against the encoding rules.
+/// Validates whether a given encoded sequence follows UTF-8 encoding rules:
+/// - Single byte: 0xxxxxxx
+/// - Two bytes: 110xxxxx 10xxxxxx
+/// - Three bytes: 1110xxxx 10xxxxxx 10xxxxxx
+/// - Four bytes: 11110xxx 10xxxxxx 10xxxxxx 10xxxxxx
 class UTF8Validator {
   // Byte pattern masks and values as static constants
   static const _SINGLE_BYTE_MASK = 0x80; // 10000000
@@ -20,17 +22,16 @@ class UTF8Validator {
   static const _MIN_BYTE_VALUE = 0;
   static const _MAX_BYTE_VALUE = 255;
 
-  /// Investigates unknown forms of representation for the UTF-8
-  /// encoded character and dispatches the processing responsibility.
+  /// Validates a UTF-8 encoded character sequence.
   ///
-  /// Currently supported forms:
-  /// - List of integer-based byte values
+  /// Currently supports:
+  /// - List<int> representing byte values
   ///
-  /// Parameter:
-  ///   encoding: An unknown representation form of one UTF-8 encoded character.
+  /// Throws:
+  /// - [ArgumentError] if the input format is not supported
+  /// - [RangeError] if any byte value is outside valid range [0-255]
   ///
-  /// Output: True if the representation constitutes a valid UTF-8
-  ///         encoded character, false otherwise.
+  /// Returns true if the sequence is a valid UTF-8 encoding, false otherwise
   bool validate(Object encoding) {
     return switch (encoding) {
       List<int> list => _validateByteSequence(list),
@@ -45,11 +46,9 @@ class UTF8Validator {
   // TODO: Implement string validation logic
   // }
 
-  /// Helper validation method for the List of Bytes representation
-  /// for a UTF-8 encoded character.
+  /// Validates a sequence of bytes against UTF-8 encoding rules.
   ///
-  /// Output: False if list has too many byte values (max 4) or if
-  ///         any integer value falls out of the value range for a byte
+  /// Throws [RangeError] for any invalid byte value
   bool _validateByteSequence(List<int> bytes) {
     // Empty sequence is valid per UTF-8 specs
     if (bytes.isEmpty) return true;
@@ -79,15 +78,6 @@ class UTF8Validator {
     }
   }
 
-  /// Validates an encoding of UTF8 standard with an integer-based
-  /// representation.
-  ///
-  /// Parameters:
-  ///   bytes: A list of integer values, each representing the byte value
-  ///          that together comprises the UTF8-encoded character.
-  ///
-  /// Output: True if the integer-based byte values constitute a valid
-  ///         UTF8 encoded character, false otherwise.
   /// Validates UTF-8 bit patterns for the byte sequence.
   bool _validateUTF8Patterns(List<int> bytes) {
     // helper functions to check byte pattern
