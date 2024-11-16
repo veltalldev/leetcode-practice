@@ -3,9 +3,9 @@
 ///
 /// This validator takes in a representation of one UTF-8 encoded
 /// character and validates it against the encoding rules.
-class UTF8_Validator {
+class UTF8Validator {
   /// Creates a UTF8_Validator instance
-  UTF8_Validator();
+  UTF8Validator();
 
   /// Investigates unknown forms of representation for the UTF-8
   /// encoded character and dispatches the processing responsibility.
@@ -20,25 +20,24 @@ class UTF8_Validator {
   ///         encoded character, false otherwise.
   bool validate(Object encoding) {
     return switch (encoding) {
-      String s => _validateStringInput(s),
-      List<int> list => _validateByteList(list),
+      List<int> list => _validateByteSequence(list),
+      String => throw ArgumentError("String validation not yet supported"),
       _ => throw ArgumentError(
           "Unsupported encoding format: ${encoding.runtimeType}",
         )
     };
   }
 
-  bool _validateStringInput(String rawInput) {
-    if (rawInput.isEmpty) return true;
-    return _validateUTF8String(rawInput);
-  }
+  // bool _validateStringInput(String rawInput) {
+  // TODO: Implement string validation logic
+  // }
 
   /// Helper validation method for the List of Bytes representation
   /// for a UTF-8 encoded character.
   ///
   /// Output: False if list has too many byte values (max 4) or if
   ///         any integer value falls out of the value range for a byte
-  bool _validateByteList(List<int> bytes) {
+  bool _validateByteSequence(List<int> bytes) {
     if (bytes.length > 4) return false;
     if (!_isValidByteRange(bytes)) return false;
     return _validateUTF8ByteList(bytes);
@@ -50,20 +49,6 @@ class UTF8_Validator {
   ///         0 and 255, false otherwise.
   bool _isValidByteRange(List<int> bytes) {
     return bytes.every((byte) => byte >= 0 && byte <= 255);
-  }
-
-  /// Helper method to validates an encoding of UTF8 standard with
-  /// a string representation.
-  ///
-  /// Parameters:
-  ///   s: A string representation of a UTF8-encoded character. [s] contains
-  ///      a string representation of the 32 bits that make up this character.
-  ///
-  /// Output: true if the string represents a set of 32 bits that comprise a
-  ///         valid UTF8 encoded character, false otherwise.
-  bool _validateUTF8String(String s) {
-    // not yet supported
-    return false;
   }
 
   /// Validates an encoding of UTF8 standard with an integer-based
