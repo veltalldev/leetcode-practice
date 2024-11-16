@@ -26,7 +26,7 @@ void main() {
 
     group('Empty Sequence validation', () {
       test('validates empty byte sequence as true', () {
-        expect(validator.validate([]), isTrue);
+        expect(validator.validate(<int>[]), isTrue);
       });
     });
 
