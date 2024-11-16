@@ -2,11 +2,11 @@ import 'package:test/test.dart';
 import 'package:leetcode20241114/utf8_validator.dart';
 
 void main() {
-  group('UTF8_Validator', () {
-    late UTF8_Validator utf8Validator;
+  group('UTF8Validator', () {
+    late UTF8Validator utf8Validator;
 
     setUp(() {
-      utf8Validator = UTF8_Validator();
+      utf8Validator = UTF8Validator();
     });
 
     // UTF8_Validator does not have any data to initialize
