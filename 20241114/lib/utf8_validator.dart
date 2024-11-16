@@ -18,7 +18,7 @@ class UTF8Validator {
   static const _FOUR_BYTES_PATTERN = 0xF0; // 111static const
   static const _CONT_BYTE_PATTERN = 0x80; // 10000000
 
-  static const _MAX_BYTES = 5;
+  static const _MAX_BYTES = 4;
   static const _MIN_BYTE_VALUE = 0;
   static const _MAX_BYTE_VALUE = 255;
 
