@@ -4,6 +4,22 @@
 /// This validator takes in a representation of one UTF-8 encoded
 /// character and validates it against the encoding rules.
 class UTF8Validator {
+  // Byte pattern masks and values as static constants
+  static const _SINGLE_BYTE_MASK = 0x80; // 10000000
+  static const _TWO_BYTES_MASK = 0xE0; // 11100000
+  static const _THREE_BYTES_MASK = 0xF0; // 11110000
+  static const _FOUR_BYTES_MASK = 0xF8; // 11111000
+  static const _CONT_BYTE_MASK = 0xC0; // 11000000
+
+  static const _TWO_BYTES_PATTERN = 0xC0; // 11000000
+  static const _THREE_BYTES_PATTERN = 0xE0; // 111static const
+  static const _FOUR_BYTES_PATTERN = 0xF0; // 111static const
+  static const _CONT_BYTE_PATTERN = 0x80; // 10000000
+
+  static const _MAX_BYTES = 5;
+  static const _MIN_BYTE_VALUE = 0;
+  static const _MAX_BYTE_VALUE = 255;
+
   /// Creates a UTF8_Validator instance
   UTF8Validator();
 
@@ -38,17 +54,32 @@ class UTF8Validator {
   /// Output: False if list has too many byte values (max 4) or if
   ///         any integer value falls out of the value range for a byte
   bool _validateByteSequence(List<int> bytes) {
-    if (bytes.length > 4) return false;
-    if (!_isValidByteRange(bytes)) return false;
+    // Empty sequence is valid per UTF-8 specs
+    if (bytes.isEmpty) return true;
+
+    // Validates sequence length
+    if (bytes.length > _MAX_BYTES) return false;
+
+    // throws [RangeError] if any value is not in valid range
+    _validateByteRange(bytes);
+
     return _validateUTF8ByteList(bytes);
   }
 
-  /// Helper method to enforce byte value range constraint.
+  /// Validates that all byte values are within valid range [0-255].
   ///
-  /// Output: True if every integer in the list has value between
-  ///         0 and 255, false otherwise.
-  bool _isValidByteRange(List<int> bytes) {
-    return bytes.every((byte) => byte >= 0 && byte <= 255);
+  /// Throws [RangeError] for any invalid value.
+  void _validateByteRange(List<int> bytes) {
+    for (var i = 0; i < bytes.length; i++) {
+      if (bytes[i] < _MIN_BYTE_VALUE || bytes[i] > _MAX_BYTE_VALUE) {
+        throw RangeError.range(
+          bytes[i],
+          _MIN_BYTE_VALUE,
+          _MAX_BYTE_VALUE,
+          'byte value at index $i',
+        );
+      }
+    }
   }
 
   /// Validates an encoding of UTF8 standard with an integer-based
