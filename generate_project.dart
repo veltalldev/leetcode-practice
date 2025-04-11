@@ -11,17 +11,14 @@ void main(List<String> arguments) async {
   var projectName = arguments[0];
 
   // Directories
-  var directories = [
-    '$projectName/lib',
-    '$projectName/test',
-  ];
+  var directories = ['$projectName/lib', '$projectName/test'];
 
   // Files
   var files = {
     '$projectName/lib/naive.dart': '/// $projectName', // Sample Dart file
     '$projectName/test/naive_test.dart': '''
 import 'package:test/test.dart';
-import 'package:leetcode$projectName/lib/naive.dart';
+import 'package:leetcode$projectName/naive.dart';
 
 ''',
     '$projectName/pubspec.yaml': '''
